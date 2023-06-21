@@ -5,34 +5,40 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class CheckoutStepOne {
-    private final WebDriver driver;
+import static org.example.DriverFactory.*;
+
+public class CheckoutStepOne{
 
     public CheckoutStepOne(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        this.driver = driver;
     }
 
-    @FindBy(xpath = "//input[@data-test=\"firstName\"]")
+    @FindBy(xpath = ".//input[@data-test='firstName']")
     private WebElement checkoutFirstNameField;
 
-    @FindBy(xpath = "//input[@data-test=\"lastName\"]")
+    @FindBy(xpath = ".//input[@data-test='lastName']")
     private WebElement checkoutLastNameField;
 
-    @FindBy(xpath = "//input[@data-test=\"postalCode\"]")
+    @FindBy(xpath = ".//input[@data-test='postalCode']")
     private WebElement checkoutPostalCodeField;
 
-    @FindBy(xpath = "//input[@data-test=\"continue\"]")
+    @FindBy(xpath = ".//input[@data-test='continue']")
     private WebElement checkoutContinueButton;
 
-    public CheckoutStepTwo fillOutFormAndClickContinue() {
+    public void fillOutFormAndNavigateToFinishPage(String firstName, String lastName, String postalCode) {
+        fillOutFormAndClickContinue(firstName, lastName, postalCode);
+    }
+
+    private void fillOutFormAndClickContinue(String firstName, String lastName, String postalCode) {
         checkoutFirstNameField.click();
-        checkoutFirstNameField.sendKeys("Vika");
+        checkoutFirstNameField.clear();
+        checkoutFirstNameField.sendKeys(firstName);
         checkoutLastNameField.click();
-        checkoutLastNameField.sendKeys("Lykh");
+        checkoutLastNameField.clear();
+        checkoutLastNameField.sendKeys(lastName);
         checkoutPostalCodeField.click();
-        checkoutPostalCodeField.sendKeys("451");
+        checkoutPostalCodeField.clear();
+        checkoutPostalCodeField.sendKeys(postalCode);
         checkoutContinueButton.click();
-        return new CheckoutStepTwo(driver);
     }
 }

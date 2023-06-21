@@ -6,57 +6,52 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.example.DriverFactory.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-public class MainProductPage {
-
-    private final WebDriver driver;
-
-    private final List<ShoppingItem> cartItems = new ArrayList<>();
-
-
+public class MainProductPage{
     public MainProductPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        this.driver = driver;
     }
 
-    @FindBy(xpath = "//div[@id=\"inventory_container\"]")
+
+    @FindBy(xpath = ".//div[@id='inventory_container']")
     private WebElement inventoryContainer;
 
-    @FindBy(xpath = "//select[@class=\"product_sort_container\"]")
-    private WebElement productSortContainer;
+    @FindBy(xpath = ".//select[@class='product_sort_container']")
+    private WebElement productSortDropdown;
 
-    @FindBy(xpath = "//option[text() = 'Price (low to high)']")
+    @FindBy(xpath = ".//option[text() = 'Price (low to high)']")
     private WebElement priceFilterLowToHigh;
 
-    @FindBy(xpath = "//div[@class=\"inventory_item_price\"]")
+    @FindBy(xpath = ".//div[@class='inventory_item_price']")
     private List<WebElement> productPricesList;
 
 
-    @FindBy(xpath = "//span[@class=\"shopping_cart_badge\"]")
+    @FindBy(xpath = ".//span[@class='shopping_cart_badge']")
     private WebElement cartCounter;
 
-    @FindBy(xpath = "//button[@data-test=\"add-to-cart-sauce-labs-bolt-t-shirt\"]")
+    @FindBy(xpath = ".//button[@data-test='add-to-cart-sauce-labs-bolt-t-shirt']")
     private WebElement addToCartBoltTShirtButton;
 
 
-    @FindBy(xpath = "//a[@class=\"shopping_cart_link\"]")
+    @FindBy(xpath = ".//a[@class='shopping_cart_link']")
     private WebElement shoppingCartLink;
 
 
-    public MainProductPage verifyUserOnPage() {
+    public MainProductPage verifyUserOnTheProductPage() {
         assertThat(inventoryContainer.isDisplayed(), is(true));
         return this;
     }
 
-    public MainProductPage changeSortOrderToPriceLowToHigh() {
-        productSortContainer.click();
-        priceFilterLowToHigh.click();
+    public MainProductPage changeSortOrder(SortOrderOption option) {
+        new Select(productSortDropdown).selectByVisibleText(option.getOrderOption());
         return this;
     }
 
@@ -78,27 +73,25 @@ public class MainProductPage {
         return this;
     }
 
-    public ShoppingCart navigateToShoppingCart() {
+    public void navigateToShoppingCart() {
         shoppingCartLink.click();
-        return new ShoppingCart(driver);
     }
 
 
     public MainProductPage addToCart(String itemName) {
-        WebElement addToCartButton = driver.findElement(By.xpath("//div[@class = 'inventory_item'][.//div[text()='" + itemName + "']]//button[text () = \"Add to cart\"]"));
+        WebElement addToCartButton = getDriver().findElement(By.xpath("//div[@class = 'inventory_item'][.//div[text()='" + itemName + "']]//button[text () = 'Add to cart']"));
         addToCartButton.click();
-
         return this;
     }
 
     public ShoppingItem getItemData(String itemName) {
-        WebElement itemNaming = driver.findElement(By.xpath("//div[text() = \"" + itemName + "\"]"));
+        WebElement itemNaming = getDriver().findElement(By.xpath("//div[text() = '" + itemName + "']"));
         String name = itemNaming.getText();
 
-        WebElement itemPrice = driver.findElement(By.xpath("//div[@class = 'inventory_item'][.//div[text()='" + itemName + "']]//div[@class = 'inventory_item_price']"));
+        WebElement itemPrice = getDriver().findElement(By.xpath("//div[@class = 'inventory_item'][.//div[text()='" + itemName + "']]//div[@class = 'inventory_item_price']"));
         String price = itemPrice.getText();
 
-        WebElement itemDescription = driver.findElement(By.xpath("//div[@class = 'inventory_item'][.//div[text()='" + itemName + "']]//div[@class=\"inventory_item_desc\"]"));
+        WebElement itemDescription = getDriver().findElement(By.xpath("//div[@class = 'inventory_item'][.//div[text()='" + itemName + "']]//div[@class='inventory_item_desc']"));
         String desc = itemDescription.getText();
 
         return new ShoppingItem(name, price, desc);

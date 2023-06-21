@@ -33,9 +33,4 @@ public final class ShoppingItem {
         ShoppingItem that = (ShoppingItem) o;
         return Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(price, that.price);
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, description, price);
-    }
 }

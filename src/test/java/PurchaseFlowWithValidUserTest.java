@@ -1,63 +1,42 @@
-import org.example.LoginPage;
-import org.example.MainProductPage;
 import org.example.ShoppingItem;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-public class PurchaseFlowWithValidUserTest {
+import static org.example.SortOrderOption.PRICE_LOW_TO_HIGH;
 
-
-    private static WebDriver driver;
-    private static LoginPage loginPage;
-    private static MainProductPage mainProductPage;
-
-    @BeforeAll
-    public static void setUp() {
-        driver = new ChromeDriver();
-        loginPage = new LoginPage(driver);
-        mainProductPage = new MainProductPage(driver);
-        driver.manage().window().maximize();
-    }
-
-    @BeforeEach
-    public void navigateLoginPage() {
-        driver.get(LoginPage.LOGIN_PAGE_URL);
-        driver.manage().deleteAllCookies();
-    }
+public class PurchaseFlowWithValidUserTest extends BaseTestClass {
 
     @Test
     public void verifyPurchaseFlowWithValidUser() {
-        String itemName = "Sauce Labs Backpack";
+        String itemNameTShirt = "Sauce Labs Bolt T-Shirt";
+        String itemNameBackPack = "Sauce Labs Backpack";
 
-        loginPage.loginAsStandardUser()
-                .verifyUserOnPage()
-                .changeSortOrderToPriceLowToHigh()
+        loginPage.loginAsStandardUser("standard_user", "secret_sauce");
+
+        mainProductPage.verifyUserOnTheProductPage()
+                .changeSortOrder(PRICE_LOW_TO_HIGH)
                 .verifySortOrderApplied()
-                .addToCart(itemName);
+                .addToCart(itemNameTShirt);
 
-        ShoppingItem mainPageItem = mainProductPage.getItemData(itemName);
+        ShoppingItem mainPageItem = mainProductPage.getItemData(itemNameTShirt);
 
         mainProductPage.verifyCartItemCount()
-                .navigateToShoppingCart()
-                .verifyCartItemMatch(mainPageItem)
+                .navigateToShoppingCart();
+
+        shoppingCart.verifyCartItemMatch(mainPageItem)
                 .removeProductFromCart()
                 .checkEmptyCartCounter()
-                .returnToProductPage()
-                .addToCart(itemName)
-                .navigateToShoppingCart()
-                .goToCheckout()
-                .fillOutFormAndClickContinue()
-                .verifyItemTotal()
-                .clickFinishButton()
-                .verifyThankYouPageImage();
-    }
+                .returnToProductPage();
 
-    @AfterAll
-    public static void tearDown() {
-        driver.quit();
+        mainProductPage.addToCart(itemNameBackPack)
+                .navigateToShoppingCart();
+
+        shoppingCart.goToCheckout();
+
+        checkoutStepOne.fillOutFormAndNavigateToFinishPage("Vikt", "Lykh", "451");
+
+        checkoutStepTwo.verifyItemTotal()
+                .clickFinishButton();
+
+        checkoutComplete.verifyThankYouPageImage();
     }
 }

@@ -12,31 +12,30 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.function.Function;
 
-public class ShoppingCart {
-    private final WebDriver driver;
-    MainProductPage mainProductPage;
+import static org.example.DriverFactory.*;
+
+public class ShoppingCart{
 
     public ShoppingCart(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        this.driver = driver;
     }
 
-    @FindBy(xpath = "//button[text() = \"Remove\"]")
+    @FindBy(xpath = ".//button[text() = 'Remove']")
     private WebElement removeButton;
 
-    @FindBy(xpath = "//span[@class=\"shopping_cart_badge\"]")
+    @FindBy(xpath = ".//span[@class='shopping_cart_badge']")
     private WebElement shoppingCartCounter;
 
-    @FindBy(xpath = "//button[@data-test=\"continue-shopping\"]")
+    @FindBy(xpath = ".//button[@data-test='continue-shopping']")
     private WebElement continueShoppingButton;
 
-    @FindBy(xpath = "//button[@data-test=\"checkout\"]")
+    @FindBy(xpath = ".//button[@data-test='checkout']")
     private WebElement checkoutButton;
 
-    @FindBy(xpath = "//button[@id=\"react-burger-menu-btn\"]")
+    @FindBy(xpath = ".//button[@id='react-burger-menu-btn']")
     private WebElement leftSideBarOpenButton;
 
-    @FindBy(xpath = "//a[@id=\"reset_sidebar_link\"]")
+    @FindBy(xpath = ".//a[@id='reset_sidebar_link']")
     private WebElement resetAppStateButton;
 
     public ShoppingCart removeProductFromCart() {
@@ -52,25 +51,23 @@ public class ShoppingCart {
         return this;
     }
 
-    public MainProductPage returnToProductPage() {
+    public void returnToProductPage() {
         continueShoppingButton.click();
-        return new MainProductPage(driver);
     }
 
-    public CheckoutStepOne goToCheckout() {
+    public void goToCheckout() {
         checkoutButton.click();
-        return new CheckoutStepOne(driver);
     }
 
 
     private ShoppingItem getItemCartData(String itemName) {
-        WebElement itemNaming = driver.findElement(By.xpath("//div[text() = \"" + itemName + "\"]"));
+        WebElement itemNaming = getDriver().findElement(By.xpath("//div[text() = \"" + itemName + "\"]"));
         String name = itemNaming.getText();
 
-        WebElement itemPrice = driver.findElement(By.xpath("//div[@class=\"cart_item\"][.//div[text()='" + itemName + "']]//div[@class = 'inventory_item_price']"));
+        WebElement itemPrice = getDriver().findElement(By.xpath("//div[@class=\"cart_item\"][.//div[text()='" + itemName + "']]//div[@class = 'inventory_item_price']"));
         String price = itemPrice.getText();
 
-        WebElement itemDescription = driver.findElement(By.xpath("//div[@class=\"cart_item\"][.//div[text()='" + itemName + "']]//div[@class=\"inventory_item_desc\"]"));
+        WebElement itemDescription = getDriver().findElement(By.xpath("//div[@class=\"cart_item\"][.//div[text()='" + itemName + "']]//div[@class=\"inventory_item_desc\"]"));
         String desc = itemDescription.getText();
 
         return new ShoppingItem(name, price, desc);
