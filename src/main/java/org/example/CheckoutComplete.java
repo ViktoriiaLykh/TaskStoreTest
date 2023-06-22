@@ -12,7 +12,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class CheckoutComplete{
 
-    public CheckoutComplete(WebDriver driver) {
+    private WebDriver driver;
+
+    public CheckoutComplete() {
+        this.driver = DriverFactory.getDriver();
         PageFactory.initElements(driver, this);
     }
 

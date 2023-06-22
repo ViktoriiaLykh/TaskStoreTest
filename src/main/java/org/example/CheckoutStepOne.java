@@ -5,11 +5,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import static org.example.DriverFactory.*;
 
 public class CheckoutStepOne{
 
-    public CheckoutStepOne(WebDriver driver) {
+    private WebDriver driver;
+
+    public CheckoutStepOne() {
+        this.driver = DriverFactory.getDriver();
         PageFactory.initElements(driver, this);
     }
 

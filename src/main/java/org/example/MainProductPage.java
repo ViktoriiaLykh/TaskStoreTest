@@ -16,7 +16,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 public class MainProductPage{
-    public MainProductPage(WebDriver driver) {
+
+    private WebDriver driver;
+    public MainProductPage() {
+        this.driver = DriverFactory.getDriver();
         PageFactory.initElements(driver, this);
     }
 

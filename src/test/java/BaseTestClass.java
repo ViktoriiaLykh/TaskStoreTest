@@ -10,23 +10,11 @@ import static org.example.DriverFactory.getDriver;
 
 public class BaseTestClass {
 
-    private static WebDriver driver;
-    protected static LoginPage loginPage;
-    protected static MainProductPage mainProductPage;
-    protected static ShoppingCart shoppingCart;
-    protected static CheckoutStepOne checkoutStepOne;
-    protected static CheckoutStepTwo checkoutStepTwo;
-    protected static CheckoutComplete checkoutComplete;
-
+    public static WebDriver driver;
     @BeforeAll
     public static void setUp() {
         driver = getDriver();
-        loginPage = new LoginPage(driver);
-        mainProductPage = new MainProductPage(driver);
-        shoppingCart = new ShoppingCart(driver);
-        checkoutStepOne = new CheckoutStepOne(driver);
-        checkoutStepTwo = new CheckoutStepTwo(driver);
-        checkoutComplete = new CheckoutComplete(driver);
+
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         driver.manage().window().maximize();
     }

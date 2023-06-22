@@ -16,7 +16,10 @@ import static org.example.DriverFactory.*;
 
 public class ShoppingCart{
 
-    public ShoppingCart(WebDriver driver) {
+    private WebDriver driver;
+
+    public ShoppingCart() {
+        this.driver = DriverFactory.getDriver();
         PageFactory.initElements(driver, this);
     }
 
