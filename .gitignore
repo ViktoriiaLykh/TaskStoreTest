@@ -36,3 +36,5 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+allure-2.8.1/

@@ -1,5 +1,10 @@
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import org.example.*;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.example.SortOrderOption.PRICE_LOW_TO_HIGH;
@@ -24,6 +29,11 @@ public class PurchaseFlowWithValidUserTest extends BaseTestClass {
     }
 
     @Test
+    @DisplayName("Purchase flow with Valid User test")
+    @Description("Test to verify purchase flow with a valid user")
+    @Epic("Purchase Flow")
+    @Feature("Valid User")
+    @Story("User should be able to complete the purchase flow successfully")
     public void verifyPurchaseFlowWithValidUser() {
         String itemNameTShirt = "Sauce Labs Bolt T-Shirt";
         String itemNameBackPack = "Sauce Labs Backpack";

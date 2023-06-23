@@ -1,4 +1,5 @@
-import org.example.*;
+import org.example.DriverFactory;
+import org.example.LoginPage;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,16 +7,15 @@ import org.openqa.selenium.WebDriver;
 
 import java.time.Duration;
 
-import static org.example.DriverFactory.getDriver;
-
 public class BaseTestClass {
 
     public static WebDriver driver;
+
     @BeforeAll
     public static void setUp() {
-        driver = getDriver();
+        driver = DriverFactory.getDriver();
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
         driver.manage().window().maximize();
     }
 
@@ -27,6 +27,6 @@ public class BaseTestClass {
 
     @AfterAll
     public static void tearDown() {
-        driver.quit();
+        DriverFactory.quitDriver();
     }
 }
