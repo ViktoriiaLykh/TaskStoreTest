@@ -6,17 +6,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import static org.example.DriverFactory.getDriver;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class CheckoutComplete{
-
-    private WebDriver driver;
-
     public CheckoutComplete() {
-        this.driver = DriverFactory.getDriver();
-        PageFactory.initElements(driver, this);
+        PageFactory.initElements(getDriver(), this);
     }
 
     @FindBy(xpath = ".//img[@alt='Pony Express']")

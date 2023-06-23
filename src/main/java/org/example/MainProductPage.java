@@ -17,10 +17,8 @@ import static org.hamcrest.Matchers.*;
 
 public class MainProductPage{
 
-    private WebDriver driver;
     public MainProductPage() {
-        this.driver = DriverFactory.getDriver();
-        PageFactory.initElements(driver, this);
+        PageFactory.initElements(getDriver(), this);
     }
 
 

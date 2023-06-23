@@ -16,11 +16,8 @@ import static org.example.DriverFactory.*;
 
 public class ShoppingCart{
 
-    private WebDriver driver;
-
     public ShoppingCart() {
-        this.driver = DriverFactory.getDriver();
-        PageFactory.initElements(driver, this);
+        PageFactory.initElements(getDriver(), this);
     }
 
     @FindBy(xpath = ".//button[text() = 'Remove']")

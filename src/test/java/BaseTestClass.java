@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 
 import java.time.Duration;
 
-public class BaseTestClass {
+public class BaseTestClass{
 
     public static WebDriver driver;
 
