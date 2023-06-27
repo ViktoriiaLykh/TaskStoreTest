@@ -1,6 +1,5 @@
-package org.example;
+package org.example.pages.checkout;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -8,11 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 import static org.example.DriverFactory.getDriver;
 
 
-public class CheckoutStepOne{
-
-    public CheckoutStepOne() {
-        PageFactory.initElements(getDriver(), this);
-    }
+public class CheckoutStepOnePage {
 
     @FindBy(xpath = ".//input[@data-test='firstName']")
     private WebElement checkoutFirstNameField;
@@ -25,6 +20,10 @@ public class CheckoutStepOne{
 
     @FindBy(xpath = ".//input[@data-test='continue']")
     private WebElement checkoutContinueButton;
+
+    public CheckoutStepOnePage() {
+        PageFactory.initElements(getDriver(), this);
+    }
 
     public void fillOutFormAndNavigateToFinishPage(String firstName, String lastName, String postalCode) {
         fillOutFormAndClickContinue(firstName, lastName, postalCode);

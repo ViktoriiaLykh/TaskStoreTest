@@ -1,8 +1,9 @@
-package org.example;
+package org.example.pages.main;
 
+import org.example.dto.ShoppingItem;
+import org.example.enums.SortOrderOption;
 import org.hamcrest.Matchers;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -17,34 +18,24 @@ import static org.hamcrest.Matchers.*;
 
 public class MainProductPage{
 
-    public MainProductPage() {
-        PageFactory.initElements(getDriver(), this);
-    }
-
-
     @FindBy(xpath = ".//div[@id='inventory_container']")
     private WebElement inventoryContainer;
 
     @FindBy(xpath = ".//select[@class='product_sort_container']")
     private WebElement productSortDropdown;
 
-    @FindBy(xpath = ".//option[text() = 'Price (low to high)']")
-    private WebElement priceFilterLowToHigh;
-
     @FindBy(xpath = ".//div[@class='inventory_item_price']")
     private List<WebElement> productPricesList;
-
 
     @FindBy(xpath = ".//span[@class='shopping_cart_badge']")
     private WebElement cartCounter;
 
-    @FindBy(xpath = ".//button[@data-test='add-to-cart-sauce-labs-bolt-t-shirt']")
-    private WebElement addToCartBoltTShirtButton;
-
-
     @FindBy(xpath = ".//a[@class='shopping_cart_link']")
     private WebElement shoppingCartLink;
 
+    public MainProductPage() {
+        PageFactory.initElements(getDriver(), this);
+    }
 
     public MainProductPage verifyUserOnTheProductPage() {
         assertThat(inventoryContainer.isDisplayed(), is(true));
@@ -78,7 +69,6 @@ public class MainProductPage{
         shoppingCartLink.click();
     }
 
-
     public MainProductPage addToCart(String itemName) {
         WebElement addToCartButton = getDriver().findElement(By.xpath("//div[@class = 'inventory_item'][.//div[text()='" + itemName + "']]//button[text () = 'Add to cart']"));
         addToCartButton.click();
@@ -97,5 +87,4 @@ public class MainProductPage{
 
         return new ShoppingItem(name, price, desc);
     }
-
 }

@@ -1,24 +1,20 @@
-package org.example;
+package org.example.pages.shoppingcart;
 
-import org.hamcrest.CoreMatchers;
+import org.example.dto.ShoppingItem;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.function.Function;
 
-import static org.example.DriverFactory.*;
+import static org.example.DriverFactory.getDriver;
 
-public class ShoppingCart{
-
-    public ShoppingCart() {
-        PageFactory.initElements(getDriver(), this);
-    }
+public class ShoppingCartPage {
 
     @FindBy(xpath = ".//button[text() = 'Remove']")
     private WebElement removeButton;
@@ -38,15 +34,20 @@ public class ShoppingCart{
     @FindBy(xpath = ".//a[@id='reset_sidebar_link']")
     private WebElement resetAppStateButton;
 
-    public ShoppingCart removeProductFromCart() {
+    public ShoppingCartPage() {
+        PageFactory.initElements(getDriver(), this);
+    }
+
+    public ShoppingCartPage removeProductFromCart() {
         removeButton.click();
         return this;
     }
 
-    public ShoppingCart checkEmptyCartCounter() {
+    public ShoppingCartPage checkEmptyCartCounter() {
         try {
-            MatcherAssert.assertThat(shoppingCartCounter.isDisplayed(), CoreMatchers.equalTo(false));
+            Assertions.assertFalse(shoppingCartCounter.isDisplayed());
         } catch (NoSuchElementException ignored) {
+            // there is no other good way to check if element is present with @FindBy
         }
         return this;
     }
@@ -73,13 +74,13 @@ public class ShoppingCart{
         return new ShoppingItem(name, price, desc);
     }
 
-    public ShoppingCart verifyCartItemMatch(ShoppingItem mainPageItem) {
+    public ShoppingCartPage verifyCartItemMatch(ShoppingItem mainPageItem) {
         ShoppingItem shoppingCartItem = getItemCartData(mainPageItem.getName());
         MatcherAssert.assertThat(shoppingCartItem, Matchers.equalTo(mainPageItem));
         return this;
     }
 
-    public <R> ShoppingCart verifyProductProperty(ShoppingItem mainPageItem, Function<ShoppingItem, R> getter) {
+    public <R> ShoppingCartPage verifyCartItemMatch(ShoppingItem mainPageItem, Function<ShoppingItem, R> getter) {
         ShoppingItem shoppingCartItem = getItemCartData(mainPageItem.getName());
 
         R mainPageItemValue = getter.apply(mainPageItem);

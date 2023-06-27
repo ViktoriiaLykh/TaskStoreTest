@@ -2,20 +2,19 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import org.example.*;
+import org.example.pages.login.LoginPage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class LoginValidationErrorTest extends BaseTestClass {
 
-    protected static LoginPage loginPage;
+    private static LoginPage loginPage;
 
     @BeforeAll
     public static void setPages(){
         loginPage = new LoginPage();
     }
-
 
     @Test
     @DisplayName("Invalid Login Test")

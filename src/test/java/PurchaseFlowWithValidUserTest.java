@@ -2,30 +2,36 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import org.example.*;
+import org.example.dto.ShoppingItem;
+import org.example.pages.checkout.CheckoutCompletePage;
+import org.example.pages.checkout.CheckoutStepOnePage;
+import org.example.pages.checkout.CheckoutStepTwoPage;
+import org.example.pages.login.LoginPage;
+import org.example.pages.main.MainProductPage;
+import org.example.pages.shoppingcart.ShoppingCartPage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.example.SortOrderOption.PRICE_LOW_TO_HIGH;
+import static org.example.enums.SortOrderOption.PRICE_LOW_TO_HIGH;
 
 public class PurchaseFlowWithValidUserTest extends BaseTestClass {
 
-    protected static LoginPage loginPage;
-    protected static MainProductPage mainProductPage;
-    protected static ShoppingCart shoppingCart;
-    protected static CheckoutStepOne checkoutStepOne;
-    protected static CheckoutStepTwo checkoutStepTwo;
-    protected static CheckoutComplete checkoutComplete;
+    private static LoginPage loginPage;
+    private static MainProductPage mainProductPage;
+    private static ShoppingCartPage shoppingCartPage;
+    private static CheckoutStepOnePage checkoutStepOnePage;
+    private static CheckoutStepTwoPage checkoutStepTwoPage;
+    private static CheckoutCompletePage checkoutCompletePage;
 
     @BeforeAll
     public static void setPages(){
         loginPage = new LoginPage();
         mainProductPage = new MainProductPage();
-        shoppingCart = new ShoppingCart();
-        checkoutStepOne = new CheckoutStepOne();
-        checkoutStepTwo = new CheckoutStepTwo();
-        checkoutComplete = new CheckoutComplete();
+        shoppingCartPage = new ShoppingCartPage();
+        checkoutStepOnePage = new CheckoutStepOnePage();
+        checkoutStepTwoPage = new CheckoutStepTwoPage();
+        checkoutCompletePage = new CheckoutCompletePage();
     }
 
     @Test
@@ -50,7 +56,7 @@ public class PurchaseFlowWithValidUserTest extends BaseTestClass {
         mainProductPage.verifyCartItemCount()
                 .navigateToShoppingCart();
 
-        shoppingCart.verifyCartItemMatch(mainPageItem)
+        shoppingCartPage.verifyCartItemMatch(mainPageItem)
                 .removeProductFromCart()
                 .checkEmptyCartCounter()
                 .returnToProductPage();
@@ -58,13 +64,13 @@ public class PurchaseFlowWithValidUserTest extends BaseTestClass {
         mainProductPage.addToCart(itemNameBackPack)
                 .navigateToShoppingCart();
 
-        shoppingCart.goToCheckout();
+        shoppingCartPage.goToCheckout();
 
-        checkoutStepOne.fillOutFormAndNavigateToFinishPage("Vikt", "Lykh", "451");
+        checkoutStepOnePage.fillOutFormAndNavigateToFinishPage("Vikt", "Lykh", "451");
 
-        checkoutStepTwo.verifyItemTotal()
+        checkoutStepTwoPage.verifyItemTotal()
                 .clickFinishButton();
 
-        checkoutComplete.verifyThankYouPageImage();
+        checkoutCompletePage.verifyThankYouPageImage();
     }
 }

@@ -2,7 +2,10 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import org.example.*;
+import org.example.dto.ShoppingItem;
+import org.example.pages.login.LoginPage;
+import org.example.pages.main.MainProductPage;
+import org.example.pages.shoppingcart.ShoppingCartPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,16 +15,15 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 public class ShoppingCartPriceTest extends BaseTestClass {
 
-
-    protected static LoginPage loginPage;
-    protected static MainProductPage mainProductPage;
-    protected static ShoppingCart shoppingCart;
+    private static LoginPage loginPage;
+    private static MainProductPage mainProductPage;
+    private static ShoppingCartPage shoppingCart;
 
     @BeforeAll
     public static void setPages(){
         loginPage = new LoginPage();
         mainProductPage = new MainProductPage();
-        shoppingCart = new ShoppingCart();
+        shoppingCart = new ShoppingCartPage();
     }
 
     @BeforeEach
@@ -41,7 +43,7 @@ public class ShoppingCartPriceTest extends BaseTestClass {
         mainProductPage.addToCart(itemName)
                 .navigateToShoppingCart();
 
-        shoppingCart.verifyProductProperty(mainPageItem, ShoppingItem::getPrice);
+        shoppingCart.verifyCartItemMatch(mainPageItem, ShoppingItem::getPrice);
     }
 
     @AfterEach

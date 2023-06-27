@@ -1,21 +1,15 @@
-package org.example;
+package org.example.pages.login;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import static org.example.DriverFactory.*;
 import static org.example.DriverFactory.getDriver;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 public class LoginPage {
-
-    public LoginPage() {
-        PageFactory.initElements(getDriver(), this);
-    }
 
     public static final String LOGIN_PAGE_URL = "https://www.saucedemo.com/";
 
@@ -36,6 +30,10 @@ public class LoginPage {
 
     @FindBy(xpath = ".//h3[@data-test='error']")
     private WebElement loginValidationErrorMessage;
+
+    public LoginPage() {
+        PageFactory.initElements(getDriver(), this);
+    }
 
     public LoginPage checkLoginValidationError(String errorMessage) {
         String displayedErrorMessage = loginValidationErrorMessage.getText();
