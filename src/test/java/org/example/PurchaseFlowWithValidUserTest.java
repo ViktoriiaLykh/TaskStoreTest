@@ -1,7 +1,10 @@
+package org.example;
+
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import org.example.context.Autowired;
 import org.example.dto.ShoppingItem;
 import org.example.pages.checkout.CheckoutCompletePage;
 import org.example.pages.checkout.CheckoutStepOnePage;
@@ -16,23 +19,18 @@ import org.junit.jupiter.api.Test;
 import static org.example.enums.SortOrderOption.PRICE_LOW_TO_HIGH;
 
 public class PurchaseFlowWithValidUserTest extends BaseTestClass {
-
+    @Autowired
     private static LoginPage loginPage;
+    @Autowired
     private static MainProductPage mainProductPage;
+    @Autowired
     private static ShoppingCartPage shoppingCartPage;
+    @Autowired
     private static CheckoutStepOnePage checkoutStepOnePage;
+    @Autowired
     private static CheckoutStepTwoPage checkoutStepTwoPage;
+    @Autowired
     private static CheckoutCompletePage checkoutCompletePage;
-
-    @BeforeAll
-    public static void setPages(){
-        loginPage = new LoginPage();
-        mainProductPage = new MainProductPage();
-        shoppingCartPage = new ShoppingCartPage();
-        checkoutStepOnePage = new CheckoutStepOnePage();
-        checkoutStepTwoPage = new CheckoutStepTwoPage();
-        checkoutCompletePage = new CheckoutCompletePage();
-    }
 
     @Test
     @DisplayName("Purchase flow with Valid User test")

@@ -1,12 +1,10 @@
 package org.example.pages.checkout;
 
+import org.example.context.Page;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-import static org.example.DriverFactory.getDriver;
-
-
+@Page
 public class CheckoutStepOnePage {
 
     @FindBy(xpath = ".//input[@data-test='firstName']")
@@ -20,10 +18,6 @@ public class CheckoutStepOnePage {
 
     @FindBy(xpath = ".//input[@data-test='continue']")
     private WebElement checkoutContinueButton;
-
-    public CheckoutStepOnePage() {
-        PageFactory.initElements(getDriver(), this);
-    }
 
     public void fillOutFormAndNavigateToFinishPage(String firstName, String lastName, String postalCode) {
         fillOutFormAndClickContinue(firstName, lastName, postalCode);

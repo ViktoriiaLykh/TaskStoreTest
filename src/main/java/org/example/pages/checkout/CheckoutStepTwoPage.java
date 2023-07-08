@@ -1,13 +1,11 @@
 package org.example.pages.checkout;
 
+import org.example.context.Page;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-
-import static org.example.DriverFactory.getDriver;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-
+@Page
 public class CheckoutStepTwoPage {
 
     @FindBy(xpath = ".//div[@class='inventory_item_price']")
@@ -18,10 +16,6 @@ public class CheckoutStepTwoPage {
 
     @FindBy(xpath = ".//button[@data-test='finish']")
     private WebElement finishButton;
-
-    public CheckoutStepTwoPage() {
-        PageFactory.initElements(getDriver(), this);
-    }
 
     public CheckoutStepTwoPage verifyItemTotal() {
         double itemPriceValue = extractPriceValue(itemPriceAfterCheckout.getText());

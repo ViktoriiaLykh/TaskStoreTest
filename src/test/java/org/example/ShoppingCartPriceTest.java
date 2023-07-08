@@ -1,7 +1,10 @@
+package org.example;
+
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import org.example.context.Autowired;
 import org.example.dto.ShoppingItem;
 import org.example.pages.login.LoginPage;
 import org.example.pages.main.MainProductPage;
@@ -14,17 +17,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 public class ShoppingCartPriceTest extends BaseTestClass {
-
+    @Autowired
     private static LoginPage loginPage;
+    @Autowired
     private static MainProductPage mainProductPage;
+    @Autowired
     private static ShoppingCartPage shoppingCart;
-
-    @BeforeAll
-    public static void setPages(){
-        loginPage = new LoginPage();
-        mainProductPage = new MainProductPage();
-        shoppingCart = new ShoppingCartPage();
-    }
 
     @BeforeEach
     public void logIn() {

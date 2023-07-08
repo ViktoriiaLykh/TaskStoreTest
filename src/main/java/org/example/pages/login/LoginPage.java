@@ -1,5 +1,6 @@
 package org.example.pages.login;
 
+import org.example.context.Page;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -9,6 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
+@Page
 public class LoginPage {
 
     public static final String LOGIN_PAGE_URL = "https://www.saucedemo.com/";

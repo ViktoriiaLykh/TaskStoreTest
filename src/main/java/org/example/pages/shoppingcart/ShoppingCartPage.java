@@ -1,5 +1,6 @@
 package org.example.pages.shoppingcart;
 
+import org.example.context.Page;
 import org.example.dto.ShoppingItem;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -14,6 +15,7 @@ import java.util.function.Function;
 
 import static org.example.DriverFactory.getDriver;
 
+@Page
 public class ShoppingCartPage {
 
     @FindBy(xpath = ".//button[text() = 'Remove']")
@@ -33,10 +35,6 @@ public class ShoppingCartPage {
 
     @FindBy(xpath = ".//a[@id='reset_sidebar_link']")
     private WebElement resetAppStateButton;
-
-    public ShoppingCartPage() {
-        PageFactory.initElements(getDriver(), this);
-    }
 
     public ShoppingCartPage removeProductFromCart() {
         removeButton.click();

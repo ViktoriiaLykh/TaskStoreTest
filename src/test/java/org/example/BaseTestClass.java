@@ -1,4 +1,7 @@
+package org.example;
+
 import org.example.DriverFactory;
+import org.example.context.PageContext;
 import org.example.pages.login.LoginPage;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -12,6 +15,7 @@ public class BaseTestClass {
     public static void setUp() {
         DriverFactory.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
         DriverFactory.getDriver().manage().window().maximize();
+        new PageContext().createContext();
     }
 
     @BeforeEach

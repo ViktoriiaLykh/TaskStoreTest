@@ -1,5 +1,6 @@
 package org.example.pages.main;
 
+import org.example.context.Page;
 import org.example.dto.ShoppingItem;
 import org.example.enums.SortOrderOption;
 import org.hamcrest.Matchers;
@@ -16,6 +17,7 @@ import static org.example.DriverFactory.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
+@Page
 public class MainProductPage{
 
     @FindBy(xpath = ".//div[@id='inventory_container']")
