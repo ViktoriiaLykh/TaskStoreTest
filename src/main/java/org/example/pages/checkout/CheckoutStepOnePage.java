@@ -24,13 +24,10 @@ public class CheckoutStepOnePage {
     }
 
     private void fillOutFormAndClickContinue(String firstName, String lastName, String postalCode) {
-        checkoutFirstNameField.click();
         checkoutFirstNameField.clear();
         checkoutFirstNameField.sendKeys(firstName);
-        checkoutLastNameField.click();
         checkoutLastNameField.clear();
         checkoutLastNameField.sendKeys(lastName);
-        checkoutPostalCodeField.click();
         checkoutPostalCodeField.clear();
         checkoutPostalCodeField.sendKeys(postalCode);
         checkoutContinueButton.click();

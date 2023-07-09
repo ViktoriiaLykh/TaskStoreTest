@@ -1,11 +1,9 @@
 package org.example.pages.login;
 
+
 import org.example.context.Page;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-
-import static org.example.DriverFactory.getDriver;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -33,10 +31,6 @@ public class LoginPage {
     @FindBy(xpath = ".//h3[@data-test='error']")
     private WebElement loginValidationErrorMessage;
 
-    public LoginPage() {
-        PageFactory.initElements(getDriver(), this);
-    }
-
     public LoginPage checkLoginValidationError(String errorMessage) {
         String displayedErrorMessage = loginValidationErrorMessage.getText();
         assertThat(displayedErrorMessage, equalTo(errorMessage));
@@ -63,11 +57,9 @@ public class LoginPage {
     }
 
     private void loginAsUser(String username, String password) {
-        usernameFiled.click();
         usernameFiled.clear();
         usernameFiled.sendKeys(username);
-        passwordField.click();
-        passwordField.click();
+        passwordField.clear();
         passwordField.sendKeys(password);
         loginButton.click();
     }

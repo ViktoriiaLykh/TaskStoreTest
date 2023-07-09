@@ -4,25 +4,27 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import org.example.context.Autowired;
+import org.example.context.Driver;
+import org.example.context.Wired;
 import org.example.dto.ShoppingItem;
 import org.example.pages.login.LoginPage;
 import org.example.pages.main.MainProductPage;
 import org.example.pages.shoppingcart.ShoppingCartPage;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+@Driver
 public class ShoppingCartPriceTest extends BaseTestClass {
-    @Autowired
-    private static LoginPage loginPage;
-    @Autowired
-    private static MainProductPage mainProductPage;
-    @Autowired
-    private static ShoppingCartPage shoppingCart;
+
+    @Wired
+    private LoginPage loginPage;
+    @Wired
+    private MainProductPage mainProductPage;
+    @Wired
+    private ShoppingCartPage shoppingCart;
 
     @BeforeEach
     public void logIn() {

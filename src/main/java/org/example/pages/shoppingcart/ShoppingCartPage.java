@@ -9,11 +9,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import java.util.function.Function;
 
-import static org.example.DriverFactory.getDriver;
+import static org.example.context.DriverFactory.getDriver;
+
 
 @Page
 public class ShoppingCartPage {

@@ -13,7 +13,6 @@ public class CheckoutCompletePage {
     @FindBy(xpath = ".//img[@alt='Pony Express']")
     private WebElement thankYouPageImage;
 
-
     public void verifyThankYouPageImage() {
         Assertions.assertTrue(thankYouPageImage.isDisplayed(), "");
         assertThat(thankYouPageImage.isDisplayed(), is(true));

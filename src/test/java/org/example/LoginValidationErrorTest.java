@@ -4,16 +4,18 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import org.example.context.Autowired;
+import org.example.context.Driver;
+import org.example.context.Wired;
 import org.example.pages.login.LoginPage;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
+@Driver(FirefoxDriver.class)
 public class LoginValidationErrorTest extends BaseTestClass {
 
-    @Autowired
-    private static LoginPage loginPage;
+    @Wired
+    private LoginPage loginPage;
 
     @Test
     @DisplayName("Invalid Login Test")

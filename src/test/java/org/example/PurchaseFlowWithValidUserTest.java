@@ -4,7 +4,8 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import org.example.context.Autowired;
+import org.example.context.Driver;
+import org.example.context.Wired;
 import org.example.dto.ShoppingItem;
 import org.example.pages.checkout.CheckoutCompletePage;
 import org.example.pages.checkout.CheckoutStepOnePage;
@@ -12,25 +13,27 @@ import org.example.pages.checkout.CheckoutStepTwoPage;
 import org.example.pages.login.LoginPage;
 import org.example.pages.main.MainProductPage;
 import org.example.pages.shoppingcart.ShoppingCartPage;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.edge.EdgeDriver;
 
 import static org.example.enums.SortOrderOption.PRICE_LOW_TO_HIGH;
 
+@Driver(EdgeDriver.class)
 public class PurchaseFlowWithValidUserTest extends BaseTestClass {
-    @Autowired
-    private static LoginPage loginPage;
-    @Autowired
-    private static MainProductPage mainProductPage;
-    @Autowired
-    private static ShoppingCartPage shoppingCartPage;
-    @Autowired
-    private static CheckoutStepOnePage checkoutStepOnePage;
-    @Autowired
-    private static CheckoutStepTwoPage checkoutStepTwoPage;
-    @Autowired
-    private static CheckoutCompletePage checkoutCompletePage;
+
+    @Wired
+    private LoginPage loginPage;
+    @Wired
+    private MainProductPage mainProductPage;
+    @Wired
+    private ShoppingCartPage shoppingCartPage;
+    @Wired
+    private CheckoutStepOnePage checkoutStepOnePage;
+    @Wired
+    private CheckoutStepTwoPage checkoutStepTwoPage;
+    @Wired
+    private CheckoutCompletePage checkoutCompletePage;
 
     @Test
     @DisplayName("Purchase flow with Valid User test")

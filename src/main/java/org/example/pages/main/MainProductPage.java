@@ -7,18 +7,17 @@ import org.hamcrest.Matchers;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.example.DriverFactory.*;
+import static org.example.context.DriverFactory.getDriver;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 @Page
-public class MainProductPage{
+public class MainProductPage {
 
     @FindBy(xpath = ".//div[@id='inventory_container']")
     private WebElement inventoryContainer;
@@ -34,10 +33,6 @@ public class MainProductPage{
 
     @FindBy(xpath = ".//a[@class='shopping_cart_link']")
     private WebElement shoppingCartLink;
-
-    public MainProductPage() {
-        PageFactory.initElements(getDriver(), this);
-    }
 
     public MainProductPage verifyUserOnTheProductPage() {
         assertThat(inventoryContainer.isDisplayed(), is(true));
