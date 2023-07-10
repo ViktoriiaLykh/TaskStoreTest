@@ -12,6 +12,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.function.Function;
 
+import static io.qameta.allure.Allure.step;
 import static org.example.context.DriverFactory.getDriver;
 
 
@@ -37,25 +38,33 @@ public class ShoppingCartPage {
     private WebElement resetAppStateButton;
 
     public ShoppingCartPage removeProductFromCart() {
-        removeButton.click();
+        step("Click 'Remove' button", () -> {
+            removeButton.click();
+        });
         return this;
     }
 
     public ShoppingCartPage checkEmptyCartCounter() {
-        try {
-            Assertions.assertFalse(shoppingCartCounter.isDisplayed());
-        } catch (NoSuchElementException ignored) {
-            // there is no other good way to check if element is present with @FindBy
-        }
+        step("Verify that the cart counter is empty", () -> {
+            try {
+                Assertions.assertFalse(shoppingCartCounter.isDisplayed());
+            } catch (NoSuchElementException ignored) {
+                // there is no other good way to check if element is present with @FindBy
+            }
+        });
         return this;
     }
 
     public void returnToProductPage() {
-        continueShoppingButton.click();
+        step("Click 'Continue Shopping' button", () -> {
+            continueShoppingButton.click();
+        });
     }
 
     public void goToCheckout() {
-        checkoutButton.click();
+        step("Click 'Checkout' button", () -> {
+            checkoutButton.click();
+        });
     }
 
 
@@ -69,26 +78,36 @@ public class ShoppingCartPage {
         WebElement itemDescription = getDriver().findElement(By.xpath("//div[@class=\"cart_item\"][.//div[text()='" + itemName + "']]//div[@class=\"inventory_item_desc\"]"));
         String desc = itemDescription.getText();
 
-        return new ShoppingItem(name, price, desc);
+        return step("Save item name, price and description from the Shopping Cart Page", () ->
+                new ShoppingItem(name, price, desc)
+        );
     }
 
     public ShoppingCartPage verifyCartItemMatch(ShoppingItem mainPageItem) {
-        ShoppingItem shoppingCartItem = getItemCartData(mainPageItem.getName());
-        MatcherAssert.assertThat(shoppingCartItem, Matchers.equalTo(mainPageItem));
+        step("Verify that the item data from Main Page correspond to the item data from the Shopping Cart Page", () -> {
+            ShoppingItem shoppingCartItem = getItemCartData(mainPageItem.getName());
+            MatcherAssert.assertThat(shoppingCartItem, Matchers.equalTo(mainPageItem));
+        });
         return this;
     }
 
     public <R> ShoppingCartPage verifyCartItemMatch(ShoppingItem mainPageItem, Function<ShoppingItem, R> getter) {
-        ShoppingItem shoppingCartItem = getItemCartData(mainPageItem.getName());
+        step("Verify that the item property from Main Page correspond to the item data from the Shopping Cart Page", () -> {
+            ShoppingItem shoppingCartItem = getItemCartData(mainPageItem.getName());
 
-        R mainPageItemValue = getter.apply(mainPageItem);
-        R shoppingCartItemValue = getter.apply(shoppingCartItem);
-        MatcherAssert.assertThat(mainPageItemValue, Matchers.equalTo(shoppingCartItemValue));
+            R mainPageItemValue = getter.apply(mainPageItem);
+            R shoppingCartItemValue = getter.apply(shoppingCartItem);
+            MatcherAssert.assertThat(mainPageItemValue, Matchers.equalTo(shoppingCartItemValue));
+        });
         return this;
     }
 
     public void reset() {
-        leftSideBarOpenButton.click();
-        resetAppStateButton.click();
+        step("Click 'left side bar' button", () -> {
+            leftSideBarOpenButton.click();
+        });
+        step("Click 'Reset App State' button", () -> {
+            resetAppStateButton.click();
+        });
     }
 }

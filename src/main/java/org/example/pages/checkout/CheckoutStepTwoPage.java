@@ -3,8 +3,11 @@ package org.example.pages.checkout;
 import org.example.context.Page;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import static io.qameta.allure.Allure.step;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+
 @Page
 public class CheckoutStepTwoPage {
 
@@ -18,9 +21,11 @@ public class CheckoutStepTwoPage {
     private WebElement finishButton;
 
     public CheckoutStepTwoPage verifyItemTotal() {
-        double itemPriceValue = extractPriceValue(itemPriceAfterCheckout.getText());
-        double itemTotalPriceValue = extractPriceValue(itemTotalPrice.getText());
-        assertThat(itemTotalPriceValue, equalTo(itemPriceValue));
+        step("Verify that the item price after checkout is equal to the item total price", () -> {
+            double itemPriceValue = extractPriceValue(itemPriceAfterCheckout.getText());
+            double itemTotalPriceValue = extractPriceValue(itemTotalPrice.getText());
+            assertThat(itemTotalPriceValue, equalTo(itemPriceValue));
+        });
         return this;
     }
 
@@ -30,6 +35,8 @@ public class CheckoutStepTwoPage {
     }
 
     public void clickFinishButton() {
-        finishButton.click();
+        step("Click 'Finish' button", () -> {
+            finishButton.click();
+        });
     }
 }

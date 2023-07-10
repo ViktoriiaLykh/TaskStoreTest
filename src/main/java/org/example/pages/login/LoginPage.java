@@ -4,6 +4,8 @@ package org.example.pages.login;
 import org.example.context.Page;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import static io.qameta.allure.Allure.step;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -32,18 +34,24 @@ public class LoginPage {
     private WebElement loginValidationErrorMessage;
 
     public LoginPage checkLoginValidationError(String errorMessage) {
-        String displayedErrorMessage = loginValidationErrorMessage.getText();
-        assertThat(displayedErrorMessage, equalTo(errorMessage));
+        step("Verify that the login Validation Error message corresponds to the entered '" + errorMessage + "'", () -> {
+            String displayedErrorMessage = loginValidationErrorMessage.getText();
+            assertThat(displayedErrorMessage, equalTo(errorMessage));
+        });
         return this;
     }
 
     public LoginPage verifyUserNotLoggedIn() {
-        assertThat(loginLogo.isDisplayed(), is(true));
+        step("Verify that the login page logo is displayed", () -> {
+            assertThat(loginLogo.isDisplayed(), is(true));
+        });
         return this;
     }
 
     public LoginPage closeWarningMessage() {
-        loginValidationErrorCloseButton.click();
+        step("Close Validation Error message", () -> {
+            loginValidationErrorCloseButton.click();
+        });
         return this;
     }
 
@@ -58,9 +66,15 @@ public class LoginPage {
 
     private void loginAsUser(String username, String password) {
         usernameFiled.clear();
-        usernameFiled.sendKeys(username);
+        step("Enter username '" + username + "'", () -> {
+            usernameFiled.sendKeys(username);
+        });
         passwordField.clear();
-        passwordField.sendKeys(password);
-        loginButton.click();
+        step("Enter password '" + password + "'", () -> {
+            passwordField.sendKeys(password);
+        });
+        step("Click 'Login' button", () -> {
+            loginButton.click();
+        });
     }
 }

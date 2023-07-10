@@ -4,8 +4,8 @@ import org.example.context.Page;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+
+import static io.qameta.allure.Allure.step;
 
 @Page
 public class CheckoutCompletePage {
@@ -14,7 +14,8 @@ public class CheckoutCompletePage {
     private WebElement thankYouPageImage;
 
     public void verifyThankYouPageImage() {
-        Assertions.assertTrue(thankYouPageImage.isDisplayed(), "");
-        assertThat(thankYouPageImage.isDisplayed(), is(true));
+        step("Verify that the 'Thank you page image' is displayed", () -> {
+            Assertions.assertTrue(thankYouPageImage.isDisplayed(), "");
+        });
     }
 }

@@ -9,26 +9,23 @@ import org.example.context.Wired;
 import org.example.pages.login.LoginPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
-@Driver(FirefoxDriver.class)
-public class LoginValidationErrorTest extends BaseClassTest {
+
+@Driver
+public class FailedTest extends BaseClassTest {
 
     @Wired
     private LoginPage loginPage;
 
     @Test
-    @DisplayName("Invalid Login Test")
+    @DisplayName("Failed Login Test")
     @Description("Test to verify invalid login scenario")
     @Epic("Login")
     @Feature("Invalid Login")
-    @Story("User should not be able to login when the account is locked")
-    public void testInvalidLogin() {
-        loginPage.loginAsLockedUser("locked_out_user", "secret_sauce")
-                .verifyUserNotLoggedIn()
+    @Story("Verify correct validation message")
+    public void failedTest(){
+        loginPage.loginAsLockedUser("standard_user11", "secret_sauce")
                 .checkLoginValidationError("Epic sadface: Sorry, this user has been locked out.")
                 .closeWarningMessage();
     }
 }
-
-

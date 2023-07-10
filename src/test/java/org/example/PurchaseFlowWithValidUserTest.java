@@ -20,7 +20,7 @@ import org.openqa.selenium.edge.EdgeDriver;
 import static org.example.enums.SortOrderOption.PRICE_LOW_TO_HIGH;
 
 @Driver(EdgeDriver.class)
-public class PurchaseFlowWithValidUserTest extends BaseTestClass {
+public class PurchaseFlowWithValidUserTest extends BaseClassTest {
 
     @Wired
     private LoginPage loginPage;

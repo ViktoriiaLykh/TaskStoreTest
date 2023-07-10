@@ -4,6 +4,8 @@ import org.example.context.Page;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import static io.qameta.allure.Allure.step;
+
 @Page
 public class CheckoutStepOnePage {
 
@@ -20,16 +22,20 @@ public class CheckoutStepOnePage {
     private WebElement checkoutContinueButton;
 
     public void fillOutFormAndNavigateToFinishPage(String firstName, String lastName, String postalCode) {
-        fillOutFormAndClickContinue(firstName, lastName, postalCode);
-    }
-
-    private void fillOutFormAndClickContinue(String firstName, String lastName, String postalCode) {
         checkoutFirstNameField.clear();
-        checkoutFirstNameField.sendKeys(firstName);
+        step("Enter First Name '" + firstName + "'", () -> {
+            checkoutFirstNameField.sendKeys(firstName);
+        });
         checkoutLastNameField.clear();
-        checkoutLastNameField.sendKeys(lastName);
+        step("Enter Last Name '" + lastName + "'", () -> {
+            checkoutLastNameField.sendKeys(lastName);
+        });
         checkoutPostalCodeField.clear();
-        checkoutPostalCodeField.sendKeys(postalCode);
-        checkoutContinueButton.click();
+        step("Enter Postal Code '" + postalCode + "'", () -> {
+            checkoutPostalCodeField.sendKeys(postalCode);
+        });
+        step("Click 'Continue' button", () -> {
+            checkoutContinueButton.click();
+        });
     }
 }

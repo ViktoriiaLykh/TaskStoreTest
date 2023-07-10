@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.ArrayList;
 import java.util.List;
 
+import static io.qameta.allure.Allure.step;
 import static org.example.context.DriverFactory.getDriver;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -35,12 +36,16 @@ public class MainProductPage {
     private WebElement shoppingCartLink;
 
     public MainProductPage verifyUserOnTheProductPage() {
-        assertThat(inventoryContainer.isDisplayed(), is(true));
+        step("Verify that the User on the Product Page and inventory container is displayed", () -> {
+            assertThat(inventoryContainer.isDisplayed(), is(true));
+        });
         return this;
     }
 
     public MainProductPage changeSortOrder(SortOrderOption option) {
-        new Select(productSortDropdown).selectByVisibleText(option.getOrderOption());
+        step("Select sort order option '" + option + "'", () -> {
+            new Select(productSortDropdown).selectByVisibleText(option.getOrderOption());
+        });
         return this;
     }
 
@@ -51,28 +56,36 @@ public class MainProductPage {
             double price = Double.parseDouble(priceText);
             prices.add(price);
         }
-
-        assertThat(prices, everyItem(lessThanOrEqualTo(prices.get(prices.size() - 1))));
+        step("Verify sort order applied", () -> {
+            assertThat(prices, everyItem(lessThanOrEqualTo(prices.get(prices.size() - 1))));
+        });
         return this;
     }
 
     public MainProductPage verifyCartItemCount() {
         String itemCountText = cartCounter.getText();
-        assertThat(itemCountText, Matchers.equalTo("1"));
+        step("Verify that the cart item count equal to 1", () -> {
+            assertThat(itemCountText, Matchers.equalTo("1"));
+        });
         return this;
     }
 
     public void navigateToShoppingCart() {
-        shoppingCartLink.click();
+        step("Click and navigate to the shopping cart", () -> {
+            shoppingCartLink.click();
+        });
     }
 
     public MainProductPage addToCart(String itemName) {
-        WebElement addToCartButton = getDriver().findElement(By.xpath("//div[@class = 'inventory_item'][.//div[text()='" + itemName + "']]//button[text () = 'Add to cart']"));
-        addToCartButton.click();
+        step("Click 'Add to cart' the '" + itemName + "' item", () -> {
+            WebElement addToCartButton = getDriver().findElement(By.xpath("//div[@class = 'inventory_item'][.//div[text()='" + itemName + "']]//button[text () = 'Add to cart']"));
+            addToCartButton.click();
+        });
         return this;
     }
 
     public ShoppingItem getItemData(String itemName) {
+
         WebElement itemNaming = getDriver().findElement(By.xpath("//div[text() = '" + itemName + "']"));
         String name = itemNaming.getText();
 
@@ -81,7 +94,7 @@ public class MainProductPage {
 
         WebElement itemDescription = getDriver().findElement(By.xpath("//div[@class = 'inventory_item'][.//div[text()='" + itemName + "']]//div[@class='inventory_item_desc']"));
         String desc = itemDescription.getText();
-
-        return new ShoppingItem(name, price, desc);
+        return step("Save item name, price and description from the Main Page",
+                () -> new ShoppingItem(name, price, desc));
     }
 }

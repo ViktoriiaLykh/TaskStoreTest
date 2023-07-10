@@ -17,7 +17,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 @Driver
-public class ShoppingCartPriceTest extends BaseTestClass {
+public class ShoppingCartPriceTest extends BaseClassTest {
 
     @Wired
     private LoginPage loginPage;
